@@ -36,13 +36,24 @@ class Ui_MainWindow(object):
         ### MENU FILE
         fileMenu = menubar.addMenu('&File')
         # new file compare
-        #newFileCompareAction = QtWidgets.QAction(QtGui.QIcon('new_file_compare.png'), '&New File Compare', self)
-        newFileCompareAction = QtWidgets.QAction(QtGui.QIcon('icon/icon_default.png'), '&New File Compare', self)
-        newFileCompareAction.setShortcut(self.shortcut_new_file_compare)
-        newFileCompareAction.setShortcutContext(QtCore.Qt.WidgetWithChildrenShortcut)
-        newFileCompareAction.setStatusTip('Start a new file compare')
-        newFileCompareAction.triggered.connect(lambda: self.action_test("newFileCompareAction"))
-        fileMenu.addAction(newFileCompareAction)
+        submenu = QtWidgets.QMenu('&New File Compare', menubar)
+        # file type : bin
+        binSubMenu = QtWidgets.QAction(QtGui.QIcon(''), '&Bin File', self)
+        binSubMenu.setStatusTip('compare bin files')
+        binSubMenu.triggered.connect(lambda: self.action_test("binSubMenu"))
+        submenu.addAction(binSubMenu)
+        # file type : hex
+        hexSubMenu = QtWidgets.QAction(QtGui.QIcon(''), '&Hex File', self)
+        hexSubMenu.setStatusTip('compare hex files')
+        hexSubMenu.triggered.connect(lambda: self.action_test("hexSubMenu"))
+        submenu.addAction(hexSubMenu)
+        # file type : text
+        textSubMenu = QtWidgets.QAction(QtGui.QIcon(''), '&Text File', self)
+        textSubMenu.setStatusTip('compare text files')
+        textSubMenu.triggered.connect(lambda: self.action_test("textSubMenu"))
+        submenu.addAction(textSubMenu)
+
+        fileMenu.addMenu(submenu)
         # new dir compare
         newDirCompareAction = QtWidgets.QAction(QtGui.QIcon('new_dir_compare.png'), 'New &Dir Compare', self)
         newDirCompareAction.setShortcut(self.shortcut_new_dir_compare)
@@ -123,6 +134,30 @@ class Ui_MainWindow(object):
         preDiffAction.setStatusTip('find pre diff')
         preDiffAction.triggered.connect(lambda: self.action_test("preDiffAction"))
         searchMenu.addAction(preDiffAction)
+
+        ### VIEW
+        viewMenu = menubar.addMenu('&View')
+        # exchange sides
+        exchangeAction = QtWidgets.QAction(QtGui.QIcon(''), '&Exchange Sides', self)
+        exchangeAction.setStatusTip('exchange windows')
+        exchangeAction.triggered.connect(lambda: self.action_test("exchangeAction"))
+        viewMenu.addAction(exchangeAction)
+        viewMenu.addSeparator()
+        # show diff only
+        showDiffAction = QtWidgets.QAction(QtGui.QIcon(''), 'Show &Diff Only', self)
+        showDiffAction.setStatusTip('only show diff')
+        showDiffAction.triggered.connect(lambda: self.action_test("showDiffAction"))
+        viewMenu.addAction(showDiffAction)
+        # show same only
+        showSameAction = QtWidgets.QAction(QtGui.QIcon(''), 'Show &Same Only', self)
+        showSameAction.setStatusTip('only show same')
+        showSameAction.triggered.connect(lambda: self.action_test("showSameAction"))
+        viewMenu.addAction(showSameAction)
+        # show all
+        showAllAction = QtWidgets.QAction(QtGui.QIcon(''), 'Show &All', self)
+        showAllAction.setStatusTip('show all')
+        showAllAction.triggered.connect(lambda: self.action_test("showAllAction"))
+        viewMenu.addAction(showAllAction)
 
         ### About
         aboutMenu = menubar.addMenu('&About')
